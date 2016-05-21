@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-// buffer for user input. size is 2048
-static char input[2048];
+#include <editline/readline.h>
 
 int main(int argc, char** argv) {
   // Version information, &c.
@@ -10,14 +10,17 @@ int main(int argc, char** argv) {
 
   while (1) {
 
-    // outputs the prompt
-    fputs("clisp> ", stdout);
+    // Output prompt and receive input
+    char* input = readline("clisp > ");
 
-    // Reads a line of user input. Max 2048
-    fgets(input, 2048, stdin);
+    // adds input to history
+    add_history(input);
 
     // echo back
-    printf("No, you're a %s", input);
+    printf("No, you're a %s\n", input);
+
+    // Free retrieved input. Function from the stdlib
+    free(input);
   }
 
   return 0;

@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
     add_history(input);
 
     // echo back
-    printf("No, you're a %s\n", input);
+    printf("have some ☕  instead of %s\n", input);
 
     // Free retrieved input. Function from the stdlib
     free(input);

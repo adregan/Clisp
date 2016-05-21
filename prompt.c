@@ -26,7 +26,7 @@ void add_history(char* unused) {}
 
 int main(int argc, char** argv) {
   // Version information, &c.
-  puts("Clisp v. 0.0.0.0.0.0.0.0");
+  puts("Clisp v. 0.0.0.0.0.1.0.0");
   puts("Press ⌃ C to Exit");
 
   while (1) {

@@ -56,6 +56,7 @@ long eval (mpc_ast_t* t) {
   return x;
 }
 
+int main (int argc, char** argv) {
   // Parsers
   mpc_parser_t* Number = mpc_new("number");
   mpc_parser_t* Operator = mpc_new("operator");

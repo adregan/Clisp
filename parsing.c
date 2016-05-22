@@ -27,6 +27,22 @@ void add_history(char* unused) {}
 #endif
 
 int main(int argc, char** argv) {
+  // Parsers
+  mpc_parser_t* Number = mpc_new("number");
+  mpc_parser_t* Operator = mpc_new("operator");
+  mpc_parser_t* Expr = mpc_new("expr");
+  mpc_parser_t* Clisp = mpc_new("clisp");
+
+  // Define the parsers
+  mpca_lang(MPCA_LANG_DEFAULT,
+    "                                                     \
+      number    : /-?[0-9]+/ ;                            \
+      operator  : '+' | '-' | '*' | '/' ;                 \
+      expr      : <number> | '(' <operator> <expr>+ ')' ; \
+      clisp     : /^/ <operator> <expr>+ /$/ ;            \
+    ",
+    Number, Operator, Expr, Clisp);
+
   // Version information, &c.
   puts("Clisp v. 0.0.0.0.0.1.0.0");
   puts("Press ⌃ C to Exit");
@@ -45,6 +61,8 @@ int main(int argc, char** argv) {
     // Free retrieved input. Function from the stdlib
     free(input);
   }
+
+  mpc_cleanup(4, Number, Operator, Expr, Clisp);
 
   return 0;
 }

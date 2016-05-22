@@ -26,7 +26,36 @@ void add_history(char* unused) {}
 #include <editline/readline.h>
 #endif
 
-int main(int argc, char** argv) {
+long eval_op (long x, char* op, long y) {
+  if (strcmp(op, "+") == 0) { return x + y; }
+  if (strcmp(op, "-") == 0) { return x - y; }
+  if (strcmp(op, "*") == 0) { return x * y; }
+  if (strcmp(op, "/") == 0) { return x / y; }
+  return 0;
+}
+
+long eval (mpc_ast_t* t) {
+  // return the number directly
+  if (strstr(t->tag, "number")) {
+    return atoi(t->contents);
+  }
+
+  // The operator is always the second child
+  char* op = t->children[1]->contents;
+
+  // stashing the third child
+  long x = eval(t->children[2]);
+
+  // iterate over the remaining children and combine
+  int i = 3;
+  while (strstr(t->children[i]->tag, "expr")) {
+    x = eval_op(x, op, eval(t->children[i]));
+    i++;
+  }
+
+  return x;
+}
+
   // Parsers
   mpc_parser_t* Number = mpc_new("number");
   mpc_parser_t* Operator = mpc_new("operator");

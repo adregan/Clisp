@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
     Number, Operator, Expr, Clisp);
 
   // Version information, &c.
-  puts("Clisp v. 0.0.0.0.0.1.0.0");
+  puts("Clisp v. 0.0.0.0.0.1.1.0");
   puts("☕  & 🍔 ");
   puts("Press ⌃ C to Exit");
 

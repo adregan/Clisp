@@ -87,8 +87,8 @@ long eval (mpc_ast_t* t) {
 
     mpc_result_t r;
     if (mpc_parse("<stdin>", input, Clisp, &r)) {
-      // On success print input
-      mpc_ast_print(r.output);
+      long result = eval(r.output);
+      printf("%li\n", result);
       mpc_ast_delete(r.output);
     } else {
       mpc_err_print(r.error);
